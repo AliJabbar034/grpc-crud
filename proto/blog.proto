@@ -1,0 +1,56 @@
+syntax="proto3";
+
+package  blog;
+
+option go_package="blog/blogpb";
+
+
+// protoc --go_out=. --go_opt=paths=source_relative \
+//     --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+//     proto/blog.proto
+
+message Blog{
+    string  id =1;
+    string auther_id=2;
+    string title=3;
+    string description=4;
+}
+
+message CreateBlogRequest {
+    Blog blog =1;
+}
+
+message CreateBlogResponse {
+    Blog blog=1;
+}
+message FindBlogRequest {
+    string id =1;
+}
+
+message FindBlogResponse {
+    Blog blog =1;
+}
+
+message FindAllBlogResponse {
+    repeated Blog blog =1;
+}
+
+message FindAllBlogRequest {}
+
+message DeleteBlogRequest {
+    string id =1;
+}
+
+message DeleteBlogResponse {
+     int64 count=1;
+    string messag =2;
+}
+service BlogService {
+
+    rpc CreateBlog(CreateBlogRequest) returns  (CreateBlogResponse) {}
+    rpc FindBlog (FindBlogRequest) returns (FindBlogResponse){}
+    rpc FindAllBLog (FindAllBlogRequest) returns (FindAllBlogResponse){}
+    rpc DeleteBlog(DeleteBlogRequest) returns (DeleteBlogResponse) {}
+
+    
+}
